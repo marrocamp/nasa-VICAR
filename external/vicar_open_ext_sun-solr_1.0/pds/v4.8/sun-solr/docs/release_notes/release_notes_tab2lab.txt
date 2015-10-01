@@ -1,0 +1,39 @@
+TAB2LAB RELEASE NOTES
+
+===========================================================================
+
+Version 2.6 Release June 2007
+
+Re-compiled due to changes in the ODLC library, but no changes have been
+made to the tool itself.
+
+===========================================================================
+
+Version 2.5 Release March 2006
+
+This has been re-compiled due to changes in the ODLC and
+LABLIB libraries, but no new changes have been made to
+TAB2LAB itself.
+
+===========================================================================
+
+Version 2.4 Release July 2005
+    Added software disclaimer message to usage screen
+
+===========================================================================
+
+Version 2.3 Release March 2005
+
+This is a recompile due to changes in the LABLIB Library
+
+===========================================================================
+
+Version 2.2 Release  September 10, 2004
+
+This has been re-compiled, but no new changes have been made
+
+===========================================================================
+Version 2.2 Release  March 2004
+
+    This is a recompile due to changes in the ODL Library
+===========================================================================

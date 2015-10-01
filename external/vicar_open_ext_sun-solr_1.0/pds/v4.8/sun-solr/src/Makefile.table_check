@@ -1,0 +1,77 @@
+#
+#*******************************************************************************
+#                                                                              *
+# Component:                                                                   *
+#                                                                              *
+#    Makefile                                                                  *
+#                                                                              *
+# Author:                                                                      *
+#                                                                              *
+#    Michael D. Cayanan (Jet Propulsion Laboratory)                            *
+#                                                                              *
+# Version and Date:                                                            *
+#                                                                              *
+#    1.0   June 26, 2003                                                       *
+#                                                                              *
+# Description:                                                                 *
+#                                                                              *
+#    This is the Makefile for the PDS Table Check software                     *
+#                                                                              *
+#    Be sure to obtain and compile (if you haven't done so already) the OAL    *
+#    library                                                                   *
+#                                                                              *
+# Change History:                                                              *
+#                                                                              *
+#    06-26-03   MDC   Original code                                            *
+#                                                                              *
+#*******************************************************************************
+#
+CFLAGS = -g
+DEFINES = -D SUN_UNIX -D SUN4 -D PDS_TOOLBOX
+TBD = legacy/table-check
+
+SHARED_DIR = legacy/shared
+LABLIB3_DIR = lablib3
+OAL_DIR = oal
+ODLC_DIR = odlc
+
+#This is the path to the OAL library file. Change the path as needed.
+OAL_LIB = lib/liboal_others_c.a
+
+#This is the path to the OAL header files. Change the path as needed.
+PDS_INCLUDES = -I$(OAL_DIR) -I$(LABLIB3_DIR) -I$(ODLC_DIR) -I$(SHARED_DIR) -I$(TBD)
+
+
+PDS_LIBRARIES = $(OAL_LIB)
+
+LINK_START = if [ -f $(TBD)/$(@F).c ]; then echo Making $@; cc $(CFLAGS) -o $@ $(TBD)/$(@F).o 
+LINK_END = $(PDS_LIBRARIES) -lm; else exit 0; fi
+
+#.SILENT:
+.KEEP_STATE:
+
+default: 
+	if [ -f $(TBD)/table_check.c ];     then make bin/table_check;      fi
+
+
+
+
+bin/table_check: $(PDS_LIBRARIES) $(TBD)/$$(@F).o $(TBD)/asctv.o $(TBD)/bintv.o $(SHARED_DIR)/formtype.o $(TBD)/table_check.o $(TBD)/tb_utils.o $(TBD)/tverr.o $(TBD)/tvutil.o
+	$(LINK_START) $(TBD)/asctv.o $(TBD)/bintv.o $(SHARED_DIR)/formtype.o $(TBD)/table_check.o $(TBD)/tb_utils.o $(TBD)/tverr.o $(TBD)/tvutil.o $(LINK_END)
+
+
+.c.o:
+	if [ -f $*.c ]; then \
+	     echo Making $@; \
+	     cc $(CFLAGS) $(PDS_INCLUDES) $(DEFINES) -c $@ -o $*.o $*.c; \
+	else \
+		exit 0; \
+	fi
+
+clean:
+	touch $(TBD)/*.o bin/table_check $(SHARED_DIR)/formtype.o
+	rm $(TBD)/*.o $(SHARED_DIR)/formtype.o
+	rm bin/table_check
+
+
+

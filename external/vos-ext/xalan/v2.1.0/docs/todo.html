@@ -1,0 +1,438 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>Xalan-Java 2</TITLE>
+</HEAD>
+<BODY>
+<H2>Xalan-Java 2: Things To Do</H2>
+<p>
+<font size="-1">See a 
+          <a href="#developer-list">list of developers/initials.</a></font>
+</p>
+<font size="-1">
+<p>Planned releases: 
+            <BR>
+<a href="#release-date-01/19/01">01/19/01</a>  <a href="#release-date-4/15/01">4/15/01</a>  <a href="#release-date-completed">Completed</a>
+</p>
+</font>
+<p>
+    
+<a name="release-date-01/19/01"><b>For release: 01/19/01</b></a>
+    , production
+    <BR>
+<b>Goal </b>[conformance]: XSLT 1.0 and XPath 1.0 compliant, 99% conformance test passage.
+    <BR>
+<b>Goal </b>[performance]: Reasonable, competative performance. [need metrics]
+    <BR>
+<b>Goal </b>[stability]: Robust.
+    <BR>
+<b>Goal </b>[api]: API Complete.
+    <BR>
+<b>Goal </b>[documentation]: Documentation complete.
+   </p>
+<p>1) 
+      No known actions pending for 2.0.0 release.
+   <BR>
+<b>context:</b> code, <b>category:</b> release</p>
+<HR>
+<p>
+    
+<a name="release-date-4/15/01"><b>For release: 4/15/01</b></a>
+    , beta
+    <BR>
+<b>Goal </b>[conformance]: XSLT 1.1 and XPath 1.0+addendum compliant, 100% conformance test passage.
+    <BR>
+<b>Goal </b>[performance]: Very good performance. [need metrics]
+    <BR>
+<b>Goal </b>[stability]: Stable, reasonable.
+    <BR>
+<b>Goal </b>[api]: API Complete.
+    <BR>
+<b>Goal </b>[documentation]: Documentation functionally complete.
+   </p>
+<p>1) 
+      Verify that the recomposing procedure for each of the recomposable
+      elements matches the standard (including errata).
+   <BR>
+<b>context:</b> code, <b>category:</b> conformance, <b>who:</b> <a href="#personref-GP">GP</a>
+</p>
+<p>2) 
+      Fix xsl:output method= so that it only accepts valid values per the
+      standard (xml, html, text, qname-that-is-not-an-ncname).  I'm looking
+      into where this change should be made.
+   <BR>
+<b>context:</b> code, <b>category:</b> conformance, <b>who:</b> <a href="#personref-GP">GP</a>
+</p>
+<p>3) 
+      Verify that the element-available function exhibits the proper
+      behavior according to Errata E7 regarding the interaction between the
+      default namespace and the element-available function.
+   <BR>
+<b>context:</b> code, <b>category:</b> conformance, <b>who:</b> <a href="#personref-GP">GP</a>
+</p>
+<p>4) 
+      Add compatibility with XalanJ1 NodeSet extension, so that stylehsheets 
+      can work with both processors.
+   <BR>
+<b>context:</b> code, <b>category:</b> extensions, <b>who:</b> <a href="#personref-GP">GP</a>
+</p>
+<p>5) 
+    Handle qName paramterer to the ContentHandler methods being an empty string.
+    See note from mikael@ingen.reklam.staldal.nu (Mikael St嬤al), 01/01/2001 09:42 AM.
+   <BR>
+<b>context:</b> code, <b>category:</b> bug, <b>who:</b> <a href="#personref-SB">SB</a>
+</p>
+<p>6) 
+    Optimize "." patterns to be ultra simple iterator.
+   <BR>
+<b>context:</b> code, <b>category:</b> performance, <b>who:</b> <a href="#personref-SB">SB</a>
+</p>
+<p>7) 
+    Optimize "/foo/baz" patterns that have no variability, to a global space, 
+    and don't re-evaluate each time.
+   <BR>
+<b>context:</b> code, <b>category:</b> performance, <b>who:</b> <a href="#personref-SB">SB</a>
+</p>
+<p>8) 
+    Don published a list of proposed extensions a while ago.
+    I would really like to get these implemented.  This is a good
+    area for part-time contributers, as the extensions have limited scope.
+  <BR>
+<b>context:</b> code, <b>category:</b> feature</p>
+<p>9) 
+    Joe could use help with the stylesheet compiler stuff.
+    Lots of work to be done there.  In particular, I would like to
+    figure out how to inline some simple itterator operations,
+    like select="node()" and select="foo".  Also, we need to figure
+    out how to analyze a particular stylesheet's dependencies, and
+    be able to package just those classes in a jar, along with the
+    compiled classes.
+    <BR>
+<b>Issue </b>[issue-compiler-for-january-release]: I suspect it is unlikely this
+    will be ready in time for this release.
+  <BR>
+<b>context:</b> code, <b>category:</b> performance</p>
+<p>10) 
+    @todo need to find an HTML to DOM parser we can use!!
+    Get a good, apache-licensed HTML-to-DOM parser checked into the 
+    xml-xalan\test\java repository, for use by org.apache.qetest.xsl.XHTComparator
+  <BR>
+<b>context:</b> test, <b>category:</b> feature, <b>priority:</b> high</p>
+<p>11) 
+    Get more real-world stylesheets checked into xml-xalan\test\tests\contrib.
+    We need more real-life examples of how people are using stylesheets, along 
+    with expected outputs (in contrib-gold) - we can then run our test driver 
+    over the whole set of them easily to get more test points.
+    Note: please feel free to contribute tests here - the committers 
+    will review and move tests into conformance, product, etc. test 
+    areas as needed, but we can always just run ContribTest on any tests.
+  <BR>
+<b>context:</b> test, <b>category:</b> tests, <b>priority:</b> medium</p>
+<p>12) 
+    Get extension tests checked into xml-xalan\test\tests\extend
+    We have some at Lotus we need to cleanup and checkin, and we 
+    hope to get more examples from Gary and other list members.
+  <BR>
+<b>context:</b> test, <b>category:</b> tests, <b>priority:</b> high</p>
+<p>13) 
+    Delete nodes in the source tree when possible.  (?? Note sure if this 
+    is do-able by beta2.)
+    
+      1) For each expression, tell if expression can traverse outside it's 
+         subtree.
+      2) For each element, tell if any following elements may need to  
+         access that node.
+      3) In instructions that traverse nodes, once the processing of the 
+         node is completed, remove the node if no following elements may 
+         need to access that node.
+      4) Keep the parse events from getting too far ahead of the transform.
+      
+      TODO: In StepPattern, Ancestors tests with predicates are problematic, 
+      and will require special treatment.
+    
+   <BR>
+<b>context:</b> code, <b>category:</b> performance, <b>who:</b> <a href="#personref-SB">SB</a>
+</p>
+<p>14) 
+    XPointer built on the XPath package.
+  <BR>
+<b>context:</b> code, <b>category:</b> feature</p>
+<p>15) 
+    Schema-savy itterators.
+    This is hard because there is no standard API for schemas yet.
+  <BR>
+<b>context:</b> code, <b>packages:</b> xpath.axes, <b>category:</b> performance</p>
+<p>16) 
+    Stylesheet analysis module.  When I call a template, where is it likely to walk in the tree?
+    Can I be sure that it will not walk up again?
+  <BR>
+<b>context:</b> code, <b>id:</b> stylesheet-analysis, <b>packages:</b> processor, <b>category:</b> performance</p>
+<p>17) 
+    Related to stylesheet-analysis, the ability to throw away parts of the tree that have been processed,
+    and we know we won't reuse, based on the stylesheet analysis.
+  <BR>
+<b>context:</b> code, <b>packages:</b> stree, <b>category:</b> performance</p>
+<p>18) 
+    Sub-expression elimination.  When I call a series of
+    xsl:when tests, are there common subexpressions that can be
+    executed once and then shared?
+  <BR>
+<b>context:</b> code, <b>packages:</b> processor, <b>category:</b> performance</p>
+<HR>
+<a name="release-date-completed">
+<H3>Completed: </H3>
+</a>
+<p>1) 
+    Update and add to architecture documentation, including package headers.
+   <BR>
+<b>context:</b> doc, <b>category:</b> documentation, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 01/12/01</p>
+<p>2) 
+    Simplify some of the exception nesting, maybe, and make sure error listeners 
+    are being called for all cases.
+    Fixed bug with XPaths in this area.  Most of the nesting is being caused 
+    by TranformerHandler to SAXException nesting, which can be unnested.
+   <BR>
+<b>context:</b> code, <b>category:</b> error-handling, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 01/06/01</p>
+<p>3) 
+    Fix 1.8 problems: extend01 (exception), numberformat 06, numberformat16, output77 (exception).
+    JDK 1.1.8, using xml-xalan\test\ConformanceTest.bat, runharness.bat, and testthreads.bat as-is.
+    The number format stuff is a bug in JDK 1.8 and can't easily be fixed 
+    or hacked.
+   <BR>
+<b>context:</b> code, <b>category:</b> bug, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 01/06/01</p>
+<p>4) 
+    Implement xsl:strip-space for generic DOM processing.
+   <BR>
+<b>context:</b> code, <b>category:</b> bug, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 01/04/01</p>
+<p>5) 
+    For default transformer, do direct transform without stylesheet.
+   <BR>
+<b>context:</b> code, <b>category:</b> performance, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 01/03/01</p>
+<p>6) 
+    Fix some javadoc headers that still have old XalanJ1 text.  For instance, 
+    TransformerImpl.
+   <BR>
+<b>context:</b> code, <b>category:</b> documentation, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 01/01/01</p>
+<p>7) 
+    Fix bug with Shane's s2s test hang.
+   <BR>
+<b>context:</b> code, <b>category:</b> bugs, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 12/31/00</p>
+<p>8) 
+    Fix bug with rare intermittent failures, probably in the STree.
+    Verification testing on JK's machine needed.
+   <BR>
+<b>context:</b> code, <b>category:</b> bugs, <b>who:</b> <a href="#personref-SB,%20JK">SB, JK</a>, <b>completed:</b> 12/31/00</p>
+<p>9) 
+    Optimize "/foo/baz" patterns to use simple child walkers.
+   <BR>
+<b>context:</b> code, <b>category:</b> performance, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 12/26/00</p>
+<p>10) 
+    Create Minitest automated test for developers to run before checkin; 
+    verifies basic functionality of TRAX interface and Xalan processor. 
+    (Still todo, minor: get xalan-dev list to vote to use this)
+  <BR>
+<b>context:</b> test, <b>who:</b> <a href="#personref-SC">SC</a>, <b>category:</b> minitest, <b>priority:</b> medium, <b>completed:</b> 12/08/00</p>
+<p>11) 
+    Fix remaining axes tests.
+  <BR>
+<b>context:</b> code, <b>category:</b> architecture, <b>priority:</b> high, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 12/10/00</p>
+<p>12) 
+    When using STree for the input, use STree for the document() and
+    result tree fragments.
+  <BR>
+<b>context:</b> code, <b>category:</b> performance, <b>priority:</b> high, <b>who:</b> <a href="#personref-MM">MM</a>, <b>completed:</b> 12/8/00</p>
+<p>13) 
+    Restructure OutputFormat class to be based on properties.  Make sure 
+    include/import conformance is correct.
+  <BR>
+<b>context:</b> code, <b>category:</b> architecture, conformance, <b>priority:</b> high, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 12/06/00</p>
+<p>14) 
+    Make entities in the html serializer to be resource file driven.
+  <BR>
+<b>context:</b> code, <b>category:</b> architecture, <b>priority:</b> high, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 12/06/00</p>
+<p>15) 
+    Removed linefeed normalization from serializers.  I think.
+  <BR>
+<b>context:</b> code, <b>category:</b> architecture, <b>priority:</b> high, <b>who:</b> <a href="#personref-SB">SB</a>, <b>completed:</b> 12/06/00</p>
+<p>16) 
+    Make this todo list.
+  <BR>
+<b>context:</b> code, <b>completed-date:</b> 10/31/00</p>
+<p>17) 
+    implement javax.trax interfaces.
+  <BR>
+<b>context:</b> code, <b>who:</b> <a href="#personref-SB">SB</a>, <b>category:</b> trax, <b>completed-date:</b> 11/06/00</p>
+<p>18) 
+    Implement DOMSerializer on SerializerToXML.
+  <BR>
+<b>context:</b> code, <b>packages:</b> serialize, <b>who:</b> <a href="#personref-SB">SB</a>, <b>category:</b> feature, <b>completed-date:</b> 11/17/00</p>
+<p>19) 
+    implement fast iterator for "foo" pattern.
+  <BR>
+<b>context:</b> code, <b>who:</b> <a href="#personref-SB">SB</a>, <b>packages:</b> xpath.axes, <b>category:</b> performance, <b>priority:</b> high, <b>completed-date:</b> 11/17/00</p>
+<p>20) 
+    optimize xsl:key and key() stuff by building hash table of iterators for
+    each key.
+  <BR>
+<b>context:</b> code, <b>who:</b> <a href="#personref-MM">MM</a>, <b>category:</b> performance, <b>priority:</b> high, <b>completed-date:</b> 11/29/00</p>
+<p>21) 
+    Clean up treatment of null namespaces, re "" vs. null.
+    I consider this to be pretty good in most places.  "" 
+    equals the default namespace.  No pending plans for action, other than ongoing 
+    cleanup and javadoc as it occurs.
+  <BR>
+<b>context:</b> code, <b>category:</b> code-cleanup, <b>priority:</b> medium, <b>completed:</b> 12/01/00</p>
+<p>22) 
+    Implement namespace aliasing.
+  <BR>
+<b>context:</b> code, <b>category:</b> conformance, <b>priority:</b> high, <b>completed:</b> 12/10/00</p>
+<p>23) 
+    Catch multiple definitions of a variable with the same name and scope.
+  <BR>
+<b>context:</b> code, <b>packages:</b> templates, <b>category:</b> conformance, <b>priority:</b> medium, <b>note:</b> done?, <b>completed:</b> 11/29/00</p>
+<p>24) 
+    Move org.apache.xalan.utils package to org.apache.xml.utils.
+    remove resource dependencies on xalan and/or xpath package.
+  <BR>
+<b>context:</b> code, <b>category:</b> code-cleanup, <b>priority:</b> medium, <b>completed:</b> 11/25/00</p>
+<p>25) 
+    Refactored the recompose logic to operate more cleanly and quickly. Fixed TemplateList
+    to properly order templates.
+  <BR>
+<b>context:</b> code, <b>category:</b> code-cleanup, performance, <b>packages:</b> templates, <b>priority:</b> medium, <b>who:</b> <a href="#personref-GP">GP</a>, <b>completed:</b> 11/30/00</p>
+<p>26) 
+    Improved error reporting for java extension method errors.
+  <BR>
+<b>context:</b> code, <b>category:</b> code-cleanup, <b>packages:</b> extensions, <b>priority:</b> medium, <b>who:</b> <a href="#personref-GP">GP</a>, <b>completed:</b> 10/29/00</p>
+<p>27) 
+    Updated documentation for Extension Handling to conform to the new extension mechanism.
+  <BR>
+<b>context:</b> code, <b>category:</b> documentation, <b>priority:</b> medium, <b>who:</b> <a href="#personref-GP">GP</a>, <b>completed:</b> 11/23/00</p>
+<p>28) 
+    Changed extension mechanism to load extensions using the thread's ContextClassLoader,
+    if available.
+  <BR>
+<b>context:</b> code, <b>category:</b> feature, <b>priority:</b> medium, <b>who:</b> <a href="#personref-GP">GP</a>, <b>completed:</b> 12/03/00</p>
+<p>29) 
+    Implement tokenize extension.  Implement element-available and function-available for
+    built-in elements and functions.
+  <BR>
+<b>context:</b> code, <b>category:</b> feature, <b>packages:</b> extensions, <b>priority:</b> medium, <b>who:</b> <a href="#personref-GP">GP</a>, <b>completed:</b> 11/28/00</p>
+<p>30) 
+     Fix handling of xsl:fallback elements within extension elements that process their own
+     code (like redirect).
+  <BR>
+<b>context:</b> code, <b>category:</b> code-cleanup, <b>packages:</b> extensions, <b>priority:</b> medium, <b>who:</b> <a href="#personref-GP">GP</a>, <b>completed:</b> 11/07/00</p>
+<p>31) 
+     Cleaned up compiler handling of getWhatToShow() to result in cleaner code and provide
+     a more accurate filter.
+  <BR>
+<b>context:</b> code, <b>category:</b> code-cleanup, <b>packages:</b> compiler, <b>priority:</b> medium, <b>who:</b> <a href="#personref-GP">GP</a>, <b>completed:</b> 11/09/00</p>
+<p>32) 
+    implement fast iterator for "@foo" pattern.
+  <BR>
+<b>context:</b> code, <b>who:</b> <a href="#personref-SB">SB</a>, <b>packages:</b> xpath.axes, <b>category:</b> performance, <b>priority:</b> high, <b>completed:</b> 12/13/00</p>
+<p>33) 
+    implement fast iterator for "//foo" pattern.
+  <BR>
+<b>context:</b> code, <b>who:</b> <a href="#personref-SB">SB</a>, <b>packages:</b> xpath.axes, <b>category:</b> performance, <b>priority:</b> high, <b>completed:</b> 12/14/00</p>
+<p>34) 
+     Rewrite the sample servlet to use the TrAX interfaces and eliminate setting system properties
+     within the servlet.
+  <BR>
+<b>context:</b> code, <b>category:</b> code-cleanup, <b>who:</b> <a href="#personref-DL">DL</a>, <b>packages:</b> xalanservlet, <b>priority:</b> medium, <b>completed:</b> 12/15/00</p>
+<p>35) 
+    Fix the serializer so it can serialize arbitrary XPath expression results (other than Document nodes).
+    As it currently stands, the ApplyXPath sample only works when you give it an expression that returns 
+    the entire Document.
+  <BR>
+<b>context:</b> code, <b>who:</b> <a href="#personref-SB">SB</a>, <b>packages:</b> org.apache.xalan.serialize, <b>category:</b> samples, <b>priority:</b> high, <b>completed:</b> 12/16/00</p>
+<p>36) 
+    Fill in all NEEDSDOC sections.
+  <BR>
+<b>context:</b> code, <b>category:</b> documentation, <b>priority:</b> high, <b>completed:</b> 12/17/00</p>
+<p>37) 
+    Rewrite the client applet to use the TrAX interfaces, and move fetching of source
+    documents and stylesheets to the trusted worker thread to get around IE security restrictions.
+  <BR>
+<b>context:</b> code, <b>category:</b> code-cleanup, <b>who:</b> <a href="#personref-DL">DL</a>, <b>packages:</b> xalan.client, <b>priority:</b> medium, <b>completed:</b> 12/17/00</p>
+<p>38) 
+    Check relative URL resolution with notations and unparsed entities.
+    Not sure if there is a bug here.  See note from Thomal Maesing on
+    10/24/2000, titled "Antwort: Re:".
+  <BR>
+<b>context:</b> code, <b>category:</b> conformance, <b>priority:</b> high, <b>completed:</b> 12/19/00</p>
+<p>39) 
+    Update the xml-xalan\test\viewResults.xsl stylesheet to show 
+    differences between two result files from the same test (eg.
+    show differences from a results-before.xml run before a developer 
+    makes a change, with results-after.xml, which was after the 
+    developer's change.)
+    This could be a bunch of stuff added to viewResults.xsl or could 
+    be a separate stylesheet. See SC for details.
+  <BR>
+<b>context:</b> test, <b>category:</b> feature, <b>priority:</b> high, <b>completed:</b> 12/19/00</p>
+<HR>
+<H3>
+<a name="developer-list">Developers:</a>
+</H3>
+<p>A list of some of people currently working on working on Xalan-Java:</p>
+<ul>
+<li>
+<a href="mailto:scott_boag@lotus.com">Scott Boag</a><a name="personref-SB"> (SB)</a>
+<BR>
+    Xalan architect, lead developer on Xalan-J 2.x.
+  </li>
+<li>
+<a href="mailto:Shane_Curcuru@lotus.com">Shane Curcuru</a><a name="personref-SC"> (SC)</a>
+<BR>
+    Lead tester for API issues, automation framework.
+  </li>
+<li>
+<a href="mailto:Paul_Dick@lotus.com">Paul Dick</a><a name="personref-PD"> (PD)</a>
+<BR>
+    XSLT Conformance stylesheet issues and Xalan-C testing.
+  </li>
+<li>
+<a href="mailto:Joseph_Kesselman@lotus.com">Joseph Kesselman</a><a name="personref-JK"> (JK)</a>
+<BR>
+    Xalan-J 2.x developer, compiling/compiled stylesheets experiments.
+  </li>
+<li>
+<a href="mailto:donald_leslie@lotus.com">Donald Leslie</a><a name="personref-DL"> (DL)</a>
+<BR>
+    Xalan-J and -C documentation, servlets, applets, and samples.
+  </li>
+<li>
+<a href="mailto:cmanolache@yahoo.com">Costin Manolache</a><a name="personref-CM"> (CM)</a>
+<BR>
+    Xalan-J 2.x developer.
+  </li>
+<li>
+<a href="mailto:David_Marston@lotus.com">David Marston</a><a name="personref-DM"> (DM)</a>
+<BR>
+    Lead tester for XSLT Conformance stylesheet issues.
+  </li>
+<li>
+<a href="mailto:myriam_midy@lotus.com">Myriam Midy</a><a name="personref-MM"> (MM)</a>
+<BR>
+    Xalan-J 1.x and 2.x developer.
+  </li>
+<li>
+<a href="mailto:garyp@firstech.com">Gary L Peskin</a><a name="personref-GP"> (GP)</a>
+<BR>
+    Xalan-J 1.x and 2.x developer, especially extension mechanisim.
+  </li>
+<li>
+<a href="mailto:johng@apache.org">John Gentilin</a><a name="personref-JG"> (JG)</a>
+<BR>
+    Major work on the SQL extensions library.
+   </li>
+<li>
+<a href="mailto:costin@apache.org">Costin Manolache</a><a name="personref-CM"> (CM)</a>
+<BR>
+     JAXP expert.
+   </li>
+</ul>
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+
+
+FLAGS       =  -DSUN_UNIX -DLINUX -DPDS_TOOLBOX
+
+#This is the path to the ODL library and header files. Change as needed.
+ODLC_DIR    = odlc
+LABLIB_DIR = lablib
+LIB_DIR = lib
+LINE_DIR = legacy/line
+
+INC_PATH  = -I$(ODLC_DIR) -I$(LABLIB_DIR) -I$(LINE_DIR)
+LIB_PATH  = -L$(LIB_DIR)
+
+LIBS      =   -lm -lodlc_lablib
+
+#
+#        Translator Options
+#
+#CCOPTS      = -c -O $(INC_PATH)
+CCOPTS = -c -O $(INC_PATH)
+LDOPTS      = $(LIB_PATH)
+
+
+#
+#        Translator Definitions
+#
+CC        = gcc
+LD        = gcc
+
+#
+#        Utility Definitions
+#
+COPY_CMD  = cp
+DEL_CMD   = rm
+MOVE_CMD  = mv
+
+.c.o:
+	$(CC) $(FLAGS) $(CCOPTS) $< -o $@;
+#
+#
+#
+#        Application Targets and Dependencies
+#
+all:     bin/line 
+
+clean:
+	- $(DEL_CMD) $(LINE_DIR)/*.o bin/line
+
+#
+#        List the project object modules
+#
+OBJECTFILES1 = $(LINE_DIR)/line.o
+
+OBJECTFILES = $(OBJECTFILES1)
+
+#
+#        List the project dependencies
+#
+
+
+$(LINE_DIR)/line.o: $(LINE_DIR)/line.c $(ODLC_DIR)/pdsdef.h $(ODLC_DIR)/pdsglob.h $(LINE_DIR)/line.h
+
+
+#
+#        Application link line
+#
+bin/line: $(OBJECTFILES) 
+	$(LD) $(OBJECTFILES) $(LDOPTS) $(LIBS) -o $@
+
+ 

@@ -1,0 +1,78 @@
+Software Overview
+=================
+     
+  The user selects one or more files to be processed.  The LINE
+  program analyzes each line in each file and reports on the status
+  of certain PDS standards and the value associated with some of
+  the PDS keywords:
+     
+          use of line terminator
+          illegal ASCII characters
+          RECORD TYPE keyword
+          INTERCHANGE FORMAT keyword
+          ROWS keyword
+          RECORD BYTES keyword
+          ROW BYTES keyword
+     
+  From the report, the user is able to discern the physical
+  characteristics of each file, and compare these against the
+  expected characteristics.  For example, a TEXT file should
+  have line terminators for every line in the file,
+  no illegal characters such as TAB, etc.).
+
+===========================================================================
+LINE Version 2.2 June 2007
+
+This has been re-compiled due to changes in the ODLC library,
+but no new changes have been made to LINE itself.
+
+===========================================================================
+
+LINE Version 2.1 March 2006
+
+This has been re-compiled due to changes in the ODLC and LABLIB libraries,
+but no new changes have been made to LINE itself.
+
+===========================================================================
+
+LINE Version 2.0 July 2005
+
+Added software disclaimer message
+
+This is a recompile due to changes in LABLIB Library
+
+===========================================================================
+
+LINE Version 1.9 September 2004
+
+This has been re-compiled, but no new changes have been made
+
+===========================================================================
+
+LINE Version 1.9 March 2004
+
+This is a recompile due to changes in ODLC
+  
+Fixed bug in SOLARIS and LINUX versions where it would crash
+when using wild cards for the input file specification.
+ 
+===========================================================================
+
+  Line Version 1.8 June 2003
+  	Changes for this version:
+		This is a recompile due to changes in ODLC
+	Known Bugs
+		SOLARIS and LINUX versions of this program will crash
+		when using wild cards for the input file specification.
+		Particularly when more than 4 files are processed.
+		
+===========================================================================  
+
+  Line Version 1.7 
+  	Release for LINUX and SOLARIS
+
+===========================================================================
+  	
+
+
+===========================================================================

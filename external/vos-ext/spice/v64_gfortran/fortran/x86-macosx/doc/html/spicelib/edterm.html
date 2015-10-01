@@ -1,0 +1,700 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+
+<HEAD>
+   <TITLE>edterm</TITLE>
+</HEAD>
+
+<BODY style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+<A name="TOP"></A>
+
+<table style="text-align: left; margin-left: auto; margin-right: auto; width: 800px;"
+ border="0" cellpadding="5" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="background-color: rgb(153, 153, 153); vertical-align: middle; text-align: center;">
+      <div align="right"> 
+      <small><small><a href="index.html">Index Page</a></small></small>
+      </div>
+      <b>edterm</b> </td>
+    </tr>
+
+    <tr>
+      <td style="vertical-align: top;">
+
+<small><div align="center">
+<A HREF="index.html#A">A</A>&nbsp;
+<A HREF="index.html#B">B</A>&nbsp;
+<A HREF="index.html#C">C</A>&nbsp;
+<A HREF="index.html#D">D</A>&nbsp;
+<A HREF="index.html#E">E</A>&nbsp;
+<A HREF="index.html#F">F</A>&nbsp;
+<A HREF="index.html#G">G</A>&nbsp;
+<A HREF="index.html#H">H</A>&nbsp;
+<A HREF="index.html#I">I</A>&nbsp;
+<A HREF="index.html#J">J</A>&nbsp;
+<A HREF="index.html#K">K</A>&nbsp;
+<A HREF="index.html#L">L</A>&nbsp;
+<A HREF="index.html#M">M</A>&nbsp;
+<A HREF="index.html#N">N</A>&nbsp;
+<A HREF="index.html#O">O</A>&nbsp;
+<A HREF="index.html#P">P</A>&nbsp;
+<A HREF="index.html#Q">Q</A>&nbsp;
+<A HREF="index.html#R">R</A>&nbsp;
+<A HREF="index.html#S">S</A>&nbsp;
+<A HREF="index.html#T">T</A>&nbsp;
+<A HREF="index.html#U">U</A>&nbsp;
+<A HREF="index.html#V">V</A>&nbsp;
+<A HREF="index.html#W">W</A>&nbsp;
+<A HREF="index.html#X">X</A>&nbsp;
+</div></small>
+       <br>
+       <table style="text-align: left; width: 60%; margin-left: auto; margin-right: auto;"
+       border="0" cellspacing="2" cellpadding="2">
+        <tbody>
+          <tr>
+            <td style="width: 50%; text-align: center;">
+            <small>
+              <a href="#Procedure">Procedure<br></a>
+              <a href="#Abstract">Abstract<br></a>
+              <a href="#Required_Reading">Required_Reading<br></a>
+              <a href="#Keywords">Keywords<br></a>
+              <a href="#Declarations">Declarations<br></a>
+              <a href="#Brief_I/O">Brief_I/O<br></a>
+
+              </small>
+              </td>
+              <td style="vertical-align: top; width: 50%; text-align: center;">
+              <small>               <a href="#Detailed_Input">Detailed_Input<br></a>
+              <a href="#Detailed_Output">Detailed_Output<br></a>
+              <a href="#Parameters">Parameters<br></a>
+              <a href="#Exceptions">Exceptions<br></a>
+              <a href="#Files">Files<br></a>
+              <a href="#Particulars">Particulars<br></a>
+
+              </small>
+              </td>
+              <td style="vertical-align: top; width: 50%; text-align: center;">
+              <small>               <a href="#Examples">Examples<br></a>
+              <a href="#Restrictions">Restrictions<br></a>
+              <a href="#Literature_References">Literature_References<br></a>
+              <a href="#Author_and_Institution">Author_and_Institution<br></a>
+              <a href="#Version">Version<br></a>
+             </small>
+            </td>
+          </tr>
+        </tbody>
+</table>
+
+<h4><a name="Procedure">Procedure</a></h4>
+<PRE>
+ EDTERM ( Ellipsoid terminator )
+ 
+      SUBROUTINE EDTERM ( TRMTYP, SOURCE, TARGET, ET,      
+     .                    FIXFRM, ABCORR, OBSRVR, NPTS, 
+     .                    TRGEPC, OBSPOS, TRMPTS        )
+  
+</PRE>
+<h4><a name="Abstract">Abstract</a></h4>
+<PRE>
+     Compute a set of points on the umbral or penumbral terminator of
+     a specified target body, where the target shape is modeled as an
+     ellipsoid.
+</PRE>
+<h4><a name="Required_Reading">Required_Reading</a></h4>
+<PRE>
+     <a href="../req/ellipses.html">ELLIPSES</a>
+</PRE>
+<h4><a name="Keywords">Keywords</a></h4>
+<PRE>
+     BODY
+     GEOMETRY
+     MATH
+</PRE>
+<h4><a name="Declarations">Declarations</a></h4>
+<PRE>
+
+      CHARACTER*(*)         TRMTYP
+      CHARACTER*(*)         SOURCE
+      CHARACTER*(*)         TARGET
+      DOUBLE PRECISION      ET
+      CHARACTER*(*)         FIXFRM
+      CHARACTER*(*)         ABCORR
+      CHARACTER*(*)         OBSRVR
+      INTEGER               NPTS
+      DOUBLE PRECISION      TRGEPC
+      DOUBLE PRECISION      OBSPOS ( 3 )
+      DOUBLE PRECISION      TRMPTS ( 3, NPTS )
+ 
+</PRE>
+<h4><a name="Brief_I/O">Brief_I/O</a></h4>
+<PRE>
+     Variable  I/O  Description
+     --------  ---  --------------------------------------------------
+     TRMTYP     I   Terminator type.
+     SOURCE     I   Light source.
+     TARGET     I   Target body.
+     ET         I   Observation epoch.
+     FIXFRM     I   Body-fixed frame associated with target.
+     ABCORR     I   Aberration correction.
+     OBSRVR     I   Observer.
+     NPTS       I   Number of points in terminator set.
+     TRGEPC     O   Epoch associated with target center.
+     OBSPOS     O   Position of observer in body-fixed frame.
+     TRMPTS     O   Terminator point set.
+   
+</PRE>
+<h4><a name="Detailed_Input">Detailed_Input</a></h4>
+<PRE>
+     TRMTYP      is a string indicating the type of terminator to
+                 compute:  umbral or penumbral.  The umbral terminator
+                 is the boundary of the portion of the ellipsoid
+                 surface in total shadow. The penumbral terminator is
+                 the boundary of the portion of the surface that is
+                 completely illuminated.  Note that in astronomy
+                 references, the unqualified word &quot;terminator&quot; refers
+                 to the umbral terminator.  Here, the unqualified 
+                 word refers to either type of terminator.
+
+                 Possible values of TRMTYP are
+
+                    'UMBRAL' 
+                    'PENUMBRAL'
+
+                 Case and leading or trailing blanks in TRMTYP are
+                 not significant.
+
+
+     SOURCE      is the name of the body acting as a light source.
+                 SOURCE is case-insensitive, and leading and trailing
+                 blanks in TARGET are not significant. Optionally, you
+                 may supply a string containing the integer ID code
+                 for the object.  For example both 'SUN' and '10' are
+                 legitimate strings that indicate the Sun is the light
+                 source.
+
+                 This routine assumes that a kernel variable
+                 representing the light source's radii is present in
+                 the kernel pool.  Normally the kernel variable would
+                 be defined by loading a PCK file.
+
+                 The shape of the light source is always modeled as a
+                 sphere, regardless of whether radii defining a
+                 triaxial ellipsoidal shape model are available in the
+                 kernel pool.  The maximum radius of the body is used
+                 as the radius of the sphere.
+
+
+     TARGET      is the name of the target body.  TARGET is
+                 case-insensitive, and leading and trailing blanks in
+                 TARGET are not significant. Optionally, you may
+                 supply a string containing the integer ID code for
+                 the object.  For example both 'MOON' and '301' are
+                 legitimate strings that indicate the moon is the
+                 target body.
+
+                 This routine assumes that a kernel variable
+                 representing the target's radii is present in the
+                 kernel pool.  Normally the kernel variable would be
+                 defined by loading a PCK file.
+
+
+     ET          is the epoch of participation of the observer,
+                 expressed as ephemeris seconds past J2000 TDB: ET is
+                 the epoch at which the observer's position is
+                 computed.
+
+                 When aberration corrections are not used, ET is also
+                 the epoch at which the position and orientation of the
+                 target body and position of the light source are
+                 computed.
+
+                 When aberration corrections are used, ET is the epoch
+                 at which the observer's position relative to the solar
+                 system barycenter is computed; in this case the
+                 position and orientation of the target body are
+                 computed at ET-LT or ET+LT, where LT is the one-way
+                 light time between the target body's center and the
+                 observer, and the sign applied to LT depends on the
+                 selected correction. See the description of ABCORR
+                 below for details.
+
+
+     FIXFRM      is the name of the reference frame relative to which
+                 the output terminator points are expressed. This must
+                 a body-centered, body-fixed frame associated with the
+                 target.  The frame's axes must be compatible with the
+                 triaxial ellipsoidal shape model associated with the
+                 target body (normally provide via a PCK): this
+                 routine assumes that the first, second, and third
+                 axis lengths correspond, respectively, to the x, y,
+                 and z-axes of the frame designated by FIXFRM.
+
+                 FIXFRM may refer to a built-in frame (documented in
+                 the Frames Required Reading) or a frame defined by a
+                 loaded frame kernel (FK).
+
+                 The orientation of the frame designated by FIXFRM is
+                 evaluated at epoch of participation of the target
+                 body.  See the descriptions of ET and ABCORR for
+                 details.
+
+
+     ABCORR      indicates the aberration correction to be applied
+                 when computing the observer-target position, the
+                 orientation of the target body, and the target-
+                 source position vector.  ABCORR may be any of
+                 the following.
+
+                    'NONE'     Apply no correction.  Compute the 
+                               terminator points using the position
+                               of the light source and target, and
+                               the orientation of the target, at ET.
+
+                 Let LT represent the one-way light time between the
+                 observer and the target body's center. The following
+                 values of ABCORR apply to the &quot;reception&quot; case in
+                 which photons depart from the target body's center at
+                 the light-time corrected epoch ET-LT and *arrive* at
+                 the observer's location at ET:
+
+
+                    'LT'       Correct for one-way light time (also
+                               called &quot;planetary aberration&quot;) using a
+                               Newtonian formulation. This correction
+                               yields the location of the terminator
+                               points at the approximate time they
+                               emitted photons arriving at the
+                               observer at ET (the difference between
+                               light time to the target center and
+                               light time to the terminator points
+                               is ignored).
+ 
+                               The light time correction uses an
+                               iterative solution of the light time
+                               equation. The solution invoked by the
+                               'LT' option uses one iteration.
+
+                               The target position as seen by the
+                               observer, the position of the light
+                               source as seen from the target at
+                               ET-LT, and the rotation of the target
+                               body, are corrected for light time.
+
+                    'LT+S'     Correct for one-way light time and
+                               stellar aberration using a Newtonian
+                               formulation. This option modifies the
+                               positions obtained with the 'LT' option
+                               to account for the observer's velocity
+                               relative to the solar system
+                               barycenter.  This correction also
+                               applies to the position of the light
+                               source relative to the target.  The
+                               result is the apparent terminator as
+                               seen by the observer.
+
+                    'CN'       Converged Newtonian light time
+                               correction.  In solving the light time
+                               equation, the 'CN' correction iterates
+                               until the solution converges.  The
+                               position and rotation of the target
+                               body and the position of the light
+                               source relative to the target are
+                               corrected for light time.
+
+                    'CN+S'     Converged Newtonian light time
+                               and stellar aberration corrections.
+
+
+     OBSRVR      is the name of the observing body.  This is typically
+                 a spacecraft, the Earth, or a surface point on the
+                 Earth.  OBSRVR is case-insensitive, and leading and
+                 trailing blanks in OBSRVR are not significant.
+                 Optionally, you may supply a string containing the
+                 integer ID code for the object.  For example both
+                 'EARTH' and '399' are legitimate strings that indicate
+                 the Earth is the observer.
+
+                    
+     NPTS        is the number of terminator points to compute.
+
+     
+</PRE>
+<h4><a name="Detailed_Output">Detailed_Output</a></h4>
+<PRE>
+     TRGEPC      is the &quot;target epoch.&quot;  TRGEPC is defined as follows:
+                 letting LT be the one-way light time between the
+                 target center and observer, TRGEPC is either the
+                 epoch ET-LT or ET depending on whether the requested
+                 aberration correction is, respectively, for received
+                 radiation or omitted.  LT is computed using the
+                 method indicated by ABCORR.
+
+                 TRGEPC is expressed as seconds past J2000 TDB.
+
+
+     OBSPOS      is the vector from the center of the target body at
+                 epoch TRGEPC to the observer at epoch ET.  OBSPOS is
+                 expressed in the target body-fixed reference frame
+                 FIXFRM, which is evaluated at TRGEPC.
+
+                 OBSPOS is returned to simplify various related
+                 computations that would otherwise be cumbersome.  For
+                 example, the vector XVEC from the observer to the
+                 Ith terminator point can be calculated via the call
+
+                    CALL <a href="vminus.html">VMINUS</a> ( TRMPTS(1,I), OBSPOS, XVEC )
+
+                 The components of OBSPOS are given in units of km.
+
+
+     TRMPTS      is an array of points on the umbral or penumbral
+                 terminator of the ellipsoid, as specified by the
+                 input argument TRMTYP.  The Ith point is contained in
+                 the array elements
+
+                     TRMPTS(J,I),  J = 1, 2, 3
+
+                 Each terminator point is the point of tangency of a
+                 plane that is also tangent to the light source. These
+                 associated points of tangency on the light source
+                 have uniform distribution in longitude when expressed
+                 in a cylindrical coordinate system whose Z-axis is
+                 OBSPOS.  The magnitude of the separation in longitude
+                 between the tangency points on the light source is
+
+                    2*Pi / NPTS 
+
+                 If the target is spherical, the terminator points
+                 also are uniformly distributed in longitude in the
+                 cylindrical system described above.  If the target is
+                 non-spherical, the longitude distribution of the
+                 points generally is not uniform.
+                                        
+                 The terminator points are expressed in the body-fixed
+                 reference frame designated by FIXFRM.  Units are km.
+</PRE>
+<h4><a name="Parameters">Parameters</a></h4>
+<PRE>
+     None.
+</PRE>
+<h4><a name="Exceptions">Exceptions</a></h4>
+<PRE>
+     1)  If the input frame name FIXFRM cannot be mapped
+         to a frame ID code, the error SPICE(NOTRANSLATION) is
+         signaled.
+
+     2)  If the target name TARGET cannot be mapped
+         to a body ID code, the error SPICE(NOTRANSLATION) is
+         signaled.
+
+     3)  If the frame designated by FIXFRM is not centered
+         on the target, the error SPICE(INVALIDFIXFRM) is
+         signaled.
+
+     4)  If the terminator type is not recognized, the error
+         will be diagnosed by a routine in the call tree of
+         this routine.
+
+     5)  If the set size NPTS is not at least 1, the error
+         will be diagnosed by a routine in the call tree of
+         this routine.
+
+     6)  If any of the ellipsoid's semi-axis lengths is non-positive,
+         the error will be diagnosed by a routine in the call tree of
+         this routine.
+
+     7)  If the light source has non-positive radius, the error
+         will be diagnosed by a routine in the call tree of
+         this routine.
+
+     8)  If the light source intersects the smallest sphere
+         centered at the origin and containing the ellipsoid, the
+         error will be diagnosed by a routine in the call tree of
+         this routine.
+
+     9)  If radii for the target body or light source are not
+         available in the kernel pool, the error will be diagnosed by
+         a routine in the call tree of this routine.  If radii are
+         available but either body does not have three radii, the
+         error SPICE(INVALIDCOUNT) will be signaled.
+
+     10) If any SPK look-up fails, the error will be diagnosed by
+         a routine in the call tree of this routine.
+</PRE>
+<h4><a name="Files">Files</a></h4>
+<PRE>
+     Appropriate SPK, PCK, and frame kernels must be loaded by the
+     calling program before this routine is called. 
+
+     The following data are required:
+
+        - SPK data: ephemeris data for target, observer, and light
+          source must be loaded. If aberration corrections are used,
+          the states of all three objects relative to the solar system
+          barycenter must be calculable from the available ephemeris
+          data. Typically ephemeris data are made available by loading
+          one or more SPK files via <a href="furnsh.html">FURNSH</a>.
+
+        - PCK data: triaxial radii for the target body and
+          the light source must be loaded into the kernel pool.
+          Typically this is done by loading a text PCK file via
+          <a href="furnsh.html">FURNSH</a>.
+
+        - Further PCK data:  rotation data for the target body must
+          be loaded.  These may be provided in a text or binary PCK
+          file. 
+
+        - Frame data:  if a frame definition is required to convert
+          the observer and target states to the target body-fixed
+          frame designated by FIXFRM, that definition must be
+          available in the kernel pool.  Typically the definitions of
+          frames not already built-in to SPICE are supplied by loading
+          a frame kernel.
+
+     In all cases, kernel data are normally loaded once per program
+     run, NOT every time this routine is called.
+</PRE>
+<h4><a name="Particulars">Particulars</a></h4>
+<PRE>
+     This routine models the boundaries of shadow regions on an
+     ellipsoidal target body &quot;illuminated&quot; by a spherical light
+     source.  Light rays are assumed to travel along straight lines;
+     refraction is not modeled.
+
+     Points on the target body's surface at which the entire cap of
+     the light source is visible are considered to be completely
+     illuminated. Points on the target's surface at which some portion
+     (or all) of the cap of the light source are blocked are
+     considered to be in partial (or total) shadow.
+
+     In this routine, we use the term &quot;umbral terminator&quot; to denote
+     the curve ususally called the &quot;terminator&quot;:  this curve is the
+     boundary of the portion of the target body's surface that lies in
+     total shadow. We use the term &quot;penumbral terminator&quot; to denote
+     the boundary of the completely illuminated portion of the
+     surface.
+
+     In general, the terminator on an ellipsoid is a more complicated
+     curve than the limb (which is always an ellipse).  Aside from
+     various special cases, the terminator does not lie in a plane.
+
+     However, the condition for a point X on the ellipsoid to lie on
+     the terminator is simple:  a plane tangent to the ellipsoid at X
+     must also be tangent to the light source.  If this tangent plane
+     does not intersect the vector from the center of the ellipsoid to
+     the center of the light source, then X lies on the umbral
+     terminator; otherwise X lies on the penumbral terminator.
+</PRE>
+<h4><a name="Examples">Examples</a></h4>
+<PRE>
+     1)  Compute a set of umbral terminator points on the Moon.
+         Perform a consistency check using the solar incidence angle
+         at each point.  We expect to see a solar incidence angle of
+         approximately 90 degrees.  Since the solar incidence angle is
+         measured between the local outward normal and the direction
+         to the Sun, the solar incidence angle at an umbral terminator
+         point should exceed 90 degrees by approximately the angular
+         radius of the Sun.
+
+         This program loads SPICE kernels via a meta-kernel.  The '
+         contents of the meta-kernel used to produce the results shown
+         below
+
+
+               \begindata
+
+                  KERNELS_TO_LOAD = ( 'naif0008.tls'
+                                      'pck00008.tpc'
+                                      'de405s.bsp'  )
+               \begintext
+
+
+         Program source code:
+
+            PROGRAM EX1
+            IMPLICIT NONE
+
+            DOUBLE PRECISION      <a href="dpr.html">DPR</a>
+            DOUBLE PRECISION      <a href="vdist.html">VDIST</a>
+
+            CHARACTER*(*)         META
+            PARAMETER           ( META   = 'ex1_meta.ker' )
+
+            INTEGER               NPTS
+            PARAMETER           ( NPTS   = 3 )
+
+            INTEGER               CORLEN
+            PARAMETER           ( CORLEN = 5 )
+
+            INTEGER               BDNMLN
+            PARAMETER           ( BDNMLN = 36 )
+
+            INTEGER               FRNMLN
+            PARAMETER           ( FRNMLN = 32 )
+
+            INTEGER               TIMLEN
+            PARAMETER           ( TIMLEN = 50 )
+
+            CHARACTER*(CORLEN)    ABCORR
+            CHARACTER*(FRNMLN)    FRAME
+            CHARACTER*(BDNMLN)    SOURCE
+            CHARACTER*(BDNMLN)    TARGET
+            CHARACTER*(BDNMLN)    OBSRVR
+            CHARACTER*(TIMLEN)    UTC
+
+            DOUBLE PRECISION      ANGRAD
+            DOUBLE PRECISION      EMISSN
+            DOUBLE PRECISION      ET
+            DOUBLE PRECISION      LAT
+            DOUBLE PRECISION      LON
+            DOUBLE PRECISION      LT
+            DOUBLE PRECISION      OBSPOS ( 3 )
+            DOUBLE PRECISION      PHASE
+            DOUBLE PRECISION      RADIUS
+            DOUBLE PRECISION      SOLAR
+            DOUBLE PRECISION      SRCPOS ( 3 )
+            DOUBLE PRECISION      SRCRAD ( 3 )
+            DOUBLE PRECISION      TRGEPC
+            DOUBLE PRECISION      TRMPTS ( 3, NPTS )
+
+            INTEGER               I
+            INTEGER               N
+
+
+            CALL <a href="furnsh.html">FURNSH</a> ( META )
+
+            UTC    = '2007 FEB 3 00:00:00.000'
+
+            CALL <a href="str2et.html">STR2ET</a> ( UTC, ET )
+
+            OBSRVR = 'EARTH'
+            TARGET = 'MOON'
+            SOURCE = 'SUN'
+            FRAME  = 'IAU_MOON'
+            ABCORR = 'LT+S'
+
+            CALL <b>EDTERM</b> ( 'UMBRAL', SOURCE, TARGET,
+           .              ET,       FRAME,  ABCORR,
+           .              OBSRVR,   NPTS,   TRGEPC,
+           .              OBSPOS,   TRMPTS         )
+
+      C
+      C     Find the angular radius of the Sun as
+      C     seen from the target.  First, look up
+      C     the target-sun vector.
+      C
+            CALL <a href="spkpos.html">SPKPOS</a> ( SOURCE, TRGEPC, FRAME,
+           .              ABCORR, TARGET, SRCPOS, LT )
+
+      C
+      C     Look up the radii of the Sun.
+      C
+            CALL <a href="bodvrd.html">BODVRD</a> ( SOURCE, 'RADII', 3, N, SRCRAD )
+
+            DO I = 1, NPTS
+
+               WRITE (*,*) ' '
+
+               CALL <a href="reclat.html">RECLAT</a> ( TRMPTS(1,I), RADIUS, LON, LAT )
+
+               WRITE (*,*) 'Terminator point ', I, ':'
+               WRITE (*,*) '   Radius                     (km):  ',
+           .                   RADIUS
+               WRITE (*,*) '   Planetocentric longitude   (deg): ',
+           .                   LON*<a href="dpr.html">DPR</a>()
+               WRITE (*,*) '   Planetocentric latitude    (deg): ',
+           .                   LAT*<a href="dpr.html">DPR</a>()
+
+      C
+      C        Find the illumination angles at the
+      C        Ith terminator point.
+      C
+               CALL <a href="illum.html">ILLUM</a>  ( TARGET, ET,         ABCORR,
+           .                 OBSRVR, TRMPTS(1,I), PHASE,
+           .                 SOLAR,  EMISSN              )
+
+               WRITE (*,*)
+           .               '   Solar incidence angle      (deg): ',
+           .                   SOLAR*<a href="dpr.html">DPR</a>()
+
+      C
+      C        Find the angular radius of the Sun as seen from
+      C        the terminator point.
+      C
+               ANGRAD = ASIN (   SRCRAD(1)
+           .                   / <a href="vdist.html">VDIST</a> ( SRCPOS,TRMPTS(1,I) )  )
+
+      C
+      C        Display the solar incidence angle after
+      C        subtracting the angular radius of the Sun
+      C        as seen from the terminator point.  The
+      C        result should be approximately 90 degrees.
+      C
+               WRITE (*, '(1X,A,2PE22.14)')
+           .               '   Minus Sun''s ' //
+           .               'angular radius (deg): ',
+           .               (SOLAR-ANGRAD) * <a href="dpr.html">DPR</a>()
+
+            END DO
+
+            END
+
+
+         When executed, this program produces the output shown
+         below.  Note that the results may vary slightly from one
+         computing platform to another.  Results are dependent on
+         the kernels used as well as the hardware and system software
+         running on the host system.
+     
+
+            Terminator point  1:
+               Radius                     (km):    1737.4
+               Planetocentric longitude   (deg):  -95.0845526
+               Planetocentric latitude    (deg):   0.00405276211
+               Solar incidence angle      (deg):   90.2697657
+               Minus Sun's angular radius (deg):   90.0000000000000E+00
+
+            Terminator point  2:
+               Radius                     (km):    1737.4
+               Planetocentric longitude   (deg):   84.2280921
+               Planetocentric latitude    (deg):   59.9957555
+               Solar incidence angle      (deg):   90.2697657
+               Minus Sun's angular radius (deg):   90.0000000000000E+00
+
+            Terminator point  3:
+               Radius                     (km):    1737.4
+               Planetocentric longitude   (deg):   87.2164179
+               Planetocentric latitude    (deg):  -59.9795505
+               Solar incidence angle      (deg):   90.2697657
+               Minus Sun's angular radius (deg):   90.0000000000000E+00
+</PRE>
+<h4><a name="Restrictions">Restrictions</a></h4>
+<PRE>
+     1) This routine models light paths as straight lines.
+</PRE>
+<h4><a name="Literature_References">Literature_References</a></h4>
+<PRE>
+     None.
+</PRE>
+<h4><a name="Author_and_Institution">Author_and_Institution</a></h4>
+<PRE>
+     N.J. Bachman    (JPL)
+</PRE>
+<h4><a name="Version">Version</a></h4>
+<PRE>
+    SPICELIB Version 1.0.0, 03-FEB-2007 (NJB)</PRE>
+<h4>Link to routine EDTERM source file <a href='../../../src/spicelib/edterm.f'>edterm.f</a> </h4>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+   <pre>Wed Jun  9 12:58:27 2010</pre>
+
+</body>
+</html>
+

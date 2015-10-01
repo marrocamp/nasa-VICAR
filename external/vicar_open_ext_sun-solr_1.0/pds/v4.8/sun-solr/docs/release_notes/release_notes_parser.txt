@@ -1,0 +1,19 @@
+Parse Label File Program
+
+This software is a Java application that checks PDS label files against a
+grammer. The grammer uses the ANTLR Tools to check the file structure for
+compliance with standards established by the PDS.
+
+*** RUNNING PARSE FILE PROGRAM ***
+The command line format for running the Parse File Program is:
+
+java -jar parser.jar <label file> (-showTree) (-writeXML <filename>)
+    (-writeMergedSrc <filename>)
+
+The -showTree option displays the ANTLR AST tree in GUI window. 
+
+The -writeXML <filename> option will write the XML file which 
+     was converted from the Label File.  
+
+The -writeMergedSrc <filename> option will write out the Label File
+     with its STRUCTURE and DESCRIPTION files included if found.

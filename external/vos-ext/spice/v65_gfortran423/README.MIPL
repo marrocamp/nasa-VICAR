@@ -1,0 +1,31 @@
+When building the 64-bit Linux RHEL 5.4 version using g77/gcc34, the link stage actually pulls in 3 system ".o" files that are built with GCC 4.1.2:
+
+/usr/libexec/gcc/x86_64-redhat-linux/3.4.6/collect2 --eh-frame-hdr -m elf_i386 -dynamic-linker /lib/ld-linux.so.2 -o version /usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/crt1.o /usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/crti.o /usr/lib/gcc/x86_64-redhat-linux/3.4.6/32/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6/32 -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6 -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6/32 -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6 -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../.. -L/lib/../lib -L/usr/lib/../lib version.o ../../lib/spicelib.a ../../lib/support.a -lfrtbegin -lg2c -lm -lgcc_s_32 -lgcc -lc -lgcc_s_32 -lgcc /usr/lib/gcc/x86_64-redhat-linux/3.4.6/32/crtend.o /usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/crtn.o
+
+[root@miplbks3 version]# strings - ../../exe/version | egrep ^GCC | egrep 4.1.2
+GCC: (GNU) 4.1.2 20080704 (Red Hat 4.1.2-44)
+GCC: (GNU) 4.1.2 20080704 (Red Hat 4.1.2-44)
+GCC: (GNU) 4.1.2 20080704 (Red Hat 4.1.2-44)
+
+They are
+
+/usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/crt1.o
+/usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/crti.o
+/usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/crtn.o
+
+(which of course redirect up to /usr/lib/crt1.o and /usr/lib/crti.o and /usr/lib/crtn.o, respectively)
+
+I've tried building a binary manually by referring to the 3.4.6 versions of these files explicitly, but there is still something else getting pulled in which was compiled against 4.1.2:
+
+/usr/libexec/gcc/x86_64-redhat-linux/3.4.6/collect2 --eh-frame-hdr -m elf_i386 -dynamic-linker /lib/ld-linux.so.2 -o version /usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/i386-redhat-linux4E/lib/crt1.o /usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/i386-redhat-linux4E/lib/crti.o /usr/lib/gcc/x86_64-redhat-linux/3.4.6/32/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6/32 -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6 -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6/32 -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6 -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../.. -L/lib/../lib -L/usr/lib/../lib version.o ../../lib/spicelib.a ../../lib/support.a -lfrtbegin -lg2c -lm -lgcc_s_32 -lgcc -lc -lgcc_s_32 -lgcc /usr/lib/gcc/x86_64-redhat-linux/3.4.6/32/crtend.o /usr/lib/gcc/x86_64-redhat-linux/3.4.6/../../../../lib/i386-redhat-linux4E/lib/crtn.o
+
+That eliminates the GCC 4.1.2 references (out of 3) shown above:
+
+[root@miplbks3 version]# strings - version | egrep ^GCC | sort | uniq
+GCC: (GNU) 3.4.6 20060404 (Red Hat 3.4.6-4)
+[root@miplbks3 version]# 
+
+The trouble is, I *really* don't want to hand-link 18 different binaries.  Not sure if this matters too much or not ...
+
+[GKE 1/28/2012]
+

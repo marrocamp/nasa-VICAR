@@ -1,0 +1,40 @@
+CFLAGS = -g
+DEFINES = -DSUN_UNIX -D_NO_PROTO -DPDS_TOOLBOX
+
+LABLIB3_DIR = lablib3
+OAL_DIR = oal
+LIB_DIR = lib
+OAL_LABLIB3_LIB = $(LIB_DIR)/liboal_others_c.a
+
+PDS_LABLIB3_OBJ = $(LABLIB3_DIR)/lablib3.o 
+
+LABLIB3_LIB_SOURCE = $(LABLIB3_DIR)/lablib3.c
+PDS_INCLUDES = -I$(LABLIB3_DIR) -I$(OAL_DIR)
+
+
+#.SILENT:
+.KEEP_STATE:
+.IGNORE:
+
+default: 
+	make clean
+	if [ -f $(LABLIB3_LIB_SOURCE) ]; then make lablib3; fi
+
+lablib3: $(PDS_LABLIB3_OBJ)
+	if [ -f $(LABLIB3_DIR)/lablib3.c ]; then \
+		ar -rv $(OAL_LABLIB3_LIB) $(PDS_LABLIB3_OBJ); \
+	fi
+
+
+.c.o:
+	if [ -f $*.c ]; then \
+	     echo Making $@; \
+	     gcc $(CFLAGS) $(PDS_INCLUDES) $(DEFINES) -c  $*.c -o $@; \
+	else \
+		exit 0; \
+	fi
+
+clean:
+	touch $(LABLIB3_DIR)/*.o
+	-rm $(LABLIB3_DIR)/*.o 
+

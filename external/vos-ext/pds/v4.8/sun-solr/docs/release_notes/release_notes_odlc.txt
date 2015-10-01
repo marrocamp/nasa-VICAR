@@ -1,0 +1,87 @@
+--------------------------------------------------------------------------
+ODLC Version 2.11   June 2007
+
+Parser fixes, which include:
+
+- Properly handling 2-Dimensional sequences
+
+- 'Gracefully' handling a malformed number in exponential format
+  (Example: 1E+30)
+
+--------------------------------------------------------------------------
+ODLC Version 2.10   March 2006
+
+Increased the PDS_ELEMENT_LEN value from 60 to 61 to take into account the
+colon found in a local data dictionary keyword.
+
+A change was made to ODL when it converts a string to an integer. If an
+overflow occurs in the process, the message that will be printed out will
+tell the user exactly what value the keyword was set to.
+
+i.e. Before we had something like,
+
+1WARNING: Line 46 -- Magnitude of integer number is too large.  The
+2                    number has been set to the maximum positive value.
+
+
+Now, we have a more detailed description,
+
+1WARNING: Line 46 -- Magnitude of integer number is too large.  The
+2                    number has been set to the maximum positive value of
+3                    2147483647.
+
+---------------------------------------------------------------------------
+
+ODLC Version 2.9 July 2005
+
+Change made to prevent crash in creating an expanded label file when the 
+original label contains 70 or more consecutive characters.
+
+Also made change so that when tabs and newlines are encountered in a label file,
+the new label file being written will correctly indicate that.
+
+-------------------------------------------------------------------------------
+
+ODLC Version 2.8 March 2005
+
+Change made to allow keyword values of NULL_CONSTANT = 0000-00 or 0000-00-00
+
+-------------------------------------------------------------------------------
+
+ODLC Version 2.7 September 10, 2004
+
+This has been re-compiled, but no new changes have been made
+
+-------------------------------------------------------------------------------
+
+ODLC Version 2.7 March 2004
+
+Changes made to the parser to allow it to grab a unit ID value even if a 
+keyword value is "NULL". 
+i.e. KEYWORD = "NULL" <km>
+
+Changed PDS_ELEMENT_LEN, located in pdsdef.h, from 30 to 60
+
+-------------------------------------------------------------------------------
+
+ODLC Version 2.6 June 2003
+Changes to LABEL.C, function  lab_write_attached_label and lab_write_label.
+Neither function recognized RECORD_TYPE = FIXED_LENGTH.  This has been fixed.
+
+-------------------------------------------------------------------------------
+
+Version 2.5
+This release has a number of small changes that allow container handling 
+for tbtool, and several bug fixes for LVTOOL.
+NOTE:
+
+When compiling this library for use with LVTOOL you must define
+the preprocessor definition LV_TOOL.
+
+When compiling this library for use with KWVTOOL you must define
+the preprocessor definition LV_DDICT and LV_KWVTOOL.
+
+When compiling this library for use with DDICT you must define
+the preprocessor definition LV_DDICT.
+
+-------------------------------------------------------------------------------

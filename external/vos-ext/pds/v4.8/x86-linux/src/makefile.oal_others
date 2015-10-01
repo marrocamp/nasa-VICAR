@@ -1,0 +1,48 @@
+# This Makefile makes a library file (.a file) containing all the OA and L3
+# object code
+#
+# Depending on the platform you're compiling on, you need to include the
+# correct .def file below:
+#
+#   Sun Sparc/SunOS and Solaris:      sun.nonansi.def or sun.sparc.def
+#   Silicon Graphics/Irix:            sgi.iris.def
+#   Dec 3100/Ultrix:                  dec.ultrix.def
+#   Dec Alpha/OSF:                    dec.alpha.def
+#
+
+
+OAL_DIR = oal
+LABLIB3_DIR = lablib3
+
+# Change this line as needed
+#include sgi.iris.def
+include $(OAL_DIR)/sun_sparc.def
+
+
+#Change to the appropriate flags as needed
+#If compiling for use with nasaview, you must define the XVT_DEF flag
+#IBM_PC should be defined too if compiling under a linux machine. It will
+#allow nasaview to perform its internal calculations correctly.
+
+FLAGS = -DIBM_PC -DLINUX
+
+INC_PATH = -I$(OAL_DIR) -I$(LABLIB3_DIR)
+LIB_OBJS = $(OAL_DIR)/binrep.o $(OAL_DIR)/clmdcmp1.o $(OAL_DIR)/clmdcmp2.o \
+	$(OAL_DIR)/decomp.o $(OAL_DIR)/oa_gif.o $(OAL_DIR)/oal.o $(OAL_DIR)/oamalloc.o \
+	$(OAL_DIR)/obj_l1.o $(OAL_DIR)/obj_l2.o $(OAL_DIR)/odlutils.o $(OAL_DIR)/rprt_err.o $(OAL_DIR)/stream_l.o $(OAL_DIR)/struct_l.o $(OAL_DIR)/writegif.o
+
+
+INCS	 = $(OAL_DIR)/binrep.h  $(OAL_DIR)/jpeg_c.h  $(OAL_DIR)/oal.h  $(OAL_DIR)/oal_sys.h  $(OAL_DIR)/oamalloc.h  $(OAL_DIR)/odlutils.h \
+           $(OAL_DIR)/stream_l.h $(LABLIB3_DIR)/lablib3.h $(OAL_DIR)/toolbox.h
+
+all: liboal_others_c.a
+
+liboal_others_c.a: $(LIB_OBJS)
+	ar -rv lib/liboal_others_c.a $(LIB_OBJS)
+
+$(LIB_OBJS):  $(INCS)
+	gcc $(FLAGS) $(INC_PATH) -c $*.c -o $@
+
+clean:
+	@echo "cleaning"
+	rm -f lib/liboal_others_c.a $(LIB_OBJS)

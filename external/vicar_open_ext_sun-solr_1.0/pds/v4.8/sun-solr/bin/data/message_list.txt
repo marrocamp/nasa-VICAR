@@ -1,0 +1,81 @@
+POSSIBLE ERROR MESSAGES:
+CHARACTER values too long, not within range                                     =   CHARACTER value too long\.  \(Must be between %d and %d characters in length\)
+CHARACTER values too long, greater than maximum length of characters allowed    =   CHARACTER value too long\.  \(Must be less than %d characters in length\)
+CHARACTER values too small, not within range                                    =   CHARACTER value too short\.  \(Must be between %d and %d characters in length\)
+CHARACTER values too small,  less than minimum length of characters required    =   CHARACTER value too short\.  \(Must be at least %d characters in length\)
+Bad value in assignment statements                                   =   Bad value in assignment statement
+Duplicate group name objects                                         =   %s is used %d times
+Encountered extra END_OBJECT keywords                                =   Encountered an extra END_OBJECT - Ignored
+Encountered extra END_GROUP keywords                                 =   Encountered an extra END_GROUP - Ignored
+END_GROUP keyword value/GROUP keyword value pairs that don't match   =   END_GROUP = %s doesn't match GROUP = %s
+END_OBJECT keyword value/OBJECT keyword value pairs that don't match =   END_OBJECT = %s doesn't match OBJECT = %s
+Errors in value list                                                 =   Error in value list
+Expected a '*', '/' or '**' operator                                 =   Expected a '\*', '/' or '\*\*' operator
+Found END_GROUP keywords when expecting END_OBJECT keywords          =   Found END_GROUP when expecting END_OBJECT - Ignored
+Found END_OBJECT keywords when expecting END_GROUP keywords          =   Found END_OBJECT when expecting END_GROUP - Ignored
+Inconsistent data types                                              =   Inconsistent data type\.  \(Value should be of type %s\)
+INTEGER values too large, greater than maximum value allowed         =   INTEGER value too large\.  \(Must be less than: %d\)
+INTEGER values too large, not within range                           =   INTEGER value too large\.  \(Must be in range: %d to %d\)
+INTEGER values too small, less than minimum value required           =   INTEGER value too small\.  \(Must be greater than: %d\)
+INTEGER values too small, not within range                           =   INTEGER value too small\.  \(Must be in range: %d to %d\)
+Invalid keyword values                                               =   Invalid value\.  \(Contains syntax errors\)
+Lowercase letters in filenames                                       =   The following file names must be in all upper case letters according to PDS standards
+Missing ')' at end of a sequence                                     =   '\)' at end of a sequence is missing
+Missing '}' at the end of a set                                      =   The '\}' is missing at end of set
+Missing '=' operator after GROUP                                     =   Missing '=' operator after GROUP
+Missing '=' operator after OBJECT                                    =   Missing '=' operator after OBJECT
+Missing END statements                                               =   END statement is missing
+Missing END_GROUP keyword for groups                                 =   Missing END_GROUP for %s
+Missing END_OBJECT keyword in objects                                =   Missing END_OBJECT for %s
+Missing keyword "UNIT_LIST"                                          =   The UNIT_LIST keyword is missing
+Missing required keywords of an object                               =   The following required keywords are missing:
+Missing required sub-objects of an object                            =   The following required sub-objects are missing:
+No '=' after object/keyword names                                    =   Expected '=' after name
+Non-integer exponents in units expression                            =   Exponent in units expression must be integer
+REAL values too large, greater than maximum value allowed            =   REAL value too large\.  \(Must be less than: %d\)
+REAL values too large, not within range                              =   REAL value too large\.  \(Must be in range: %d to %d\)
+REAL values too small, less than minimum value required              =   REAL value too small\.  \(Must be greater than: %d\)
+REAL values too small, not within range                              =   REAL value too small\.  \(Must be in range: %d to %d\)
+Sequences with no values                                             =   Sequences with no values not allowed
+Syntax errors in label                                               =   syntax error
+Un-allowed keywords                                                  =   Not an allowed keyword\.  \(It was not found on the optional or required keywords list\)
+Un-allowed sub-objects                                               =   Not an allowed sub-object\.  \(It was not found on the optional or required sub-objects list\)
+Units designator must be a name (alphanumeric)                       =   Units designator must be a name (alphanumeric)
+Unknown delimitation types in Catalog SFDU                           =   Catalog SFDU has unknown delimitation type
+Unrecognized SFDU structures                                         =   The SFDU structure of this file is not recognized
+END OF ERROR LIST
+
+
+POSSIBLE WARNING MESSAGES:
+BEGIN_GROUP statements converted to GROUP                            =   BEGIN_GROUP statement found.  Will be converted to GROUP
+BEGIN_OBJECT statements converted to OBJECT                          =   BEGIN_OBJECT statement found.  Will be converted to OBJECT
+Catalog end markers in file not found                                =   Unable to locate catalog end marker in file\.
+Characters found on line after comment was ignored                   =   Characters found on line after comment ignored
+Data SFDUs that are not version 3                                    =   Data SFDU is not version 3\.
+Keywords not in data dictionary                                      =   Not in data dictionary
+Magnitude of integer numbers that are too large                      =   Magnitude of integer number is too large\.  The number has been set to the maximum %s value\.
+Magnitude of real numbers that are too large                         =   Magnitude of real number is too large\.  The number has been set to the maximum %s value\.
+No class Z in the first SFDU of a file                               =   First SFDU in file does not have class Z\.
+No data class following end marker of SFDUs                          =   SFDU following end marker is not data class\.
+Non-standard keyword values                                          =   Value is not a standard value: %d
+Objects not in data dictionary                                       =   Not in the data dictionary\.  \(Sub-objects and keywords will not be validated against required and optional lists\)
+Parameter names already in existence for current object or group     =   A parameter named %s already exists for %s
+Standard values that were matched only after blanks, underscores, and quotes were removed, and it was converted to upper case       =   Standard value is: %s: %s, \(GEN_DATA_TYPE=IDENTIFIER\)
+Second SFDUs with unrecognized classes                               =   Second SFDU has unrecognized class\. 
+Sequences or set values that are not standard values                 =   Sequence or set value is not a standard value: %d
+Sequences or sets that matched a standard value only after blanks, underscores, and quotes were removed, and it was converted to upper case  =   Sequence or set matched a standard value only after blanks, underscores, and quotes were removed, and it was converted to upper case: x
+SFDU labels for catalog data with no 0 as spare byte 1               =   SFDU label for catalog data does not have 0 as spare byte 1\.
+SFDU labels for catalog data with no 0 as spare byte 2               =   SFDU label for catalog data does not have 0 as spare byte 2\.
+SFDU labels for catalog data with unrecognized version               =   SFDU label for catalog data has an unrecognized version\.
+SFDU labels for data with no 0 as spare byte 2                       =   SFDU label for data does not have 0 as spare byte 2\.
+SFDU labels for Z wrappers with no 0 as spare byte 1                 =   SFDU label for Z wrapper does not have 0 as spare byte 1\.
+SFDU labels for Z wrappers with unrecognized version                 =   SFDU label for Z wrapper has an unrecognized version\.
+SFDU labels for Z wrappers with no 0 as spare byte 2                 =   SFDU label for Z wrapper does not have 0 as spare byte 2\.
+SFDU labels that are out of date                                     =   SFDU label is out of date
+SFDU Z wrappers with no DDID of 0001                                 =   SFDU Z wrapper does not have a DDID of 0001\.
+Unknown delimitation types in data SFDU                              =   Data SFDU has unknown delimitation type\. 
+Unrecognized delimitation types of SFDU Z wrappers                   =   SFDU Z wrapper has unrecognized delimitation type\.
+Unrecognized units of a keyword                                      =   Unit %s is not recognized
+Values that are assumed to be a file name                            =   Value is assumed to be a file name
+Value of "N/A" for a name                                            =   Value N/A is not a name
+END OF WARNING LIST

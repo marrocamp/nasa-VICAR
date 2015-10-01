@@ -1,0 +1,74 @@
+
+
+FLAGS       =  -DSUN_UNIX -DLINUX -DPDS_TOOLBOX
+
+#This is the path to the ODL library and header files. Change as needed
+ODLC_DIR    = odlc
+LABLIB_DIR = lablib
+LIB_DIR = lib
+
+SHARED_DIR = legacy/shared
+MAKE_INDEX_DIR = legacy/make-index
+
+INC_PATH  = -I$(ODLC_DIR) -I$(LABLIB_DIR) -I$(SHARED_DIR) -I$(MAKE_INDEX_DIR)
+LIB_PATH  = -L$(LIB_DIR)
+
+LIBS      =   -lm -lodlc_lablib
+
+#
+#        Translator Options
+#
+#
+CCOPTS      = -c -O $(INC_PATH)
+LDOPTS      = $(LIB_PATH)
+
+
+#
+#        Translator Definitions
+#
+CC        = gcc
+LD        = gcc
+
+#
+#        Utility Definitions
+#
+COPY_CMD  = cp
+DEL_CMD   = rm
+MOVE_CMD  = mv
+
+.c.o:
+	$(CC) $(FLAGS) $(CCOPTS) $< -o $@;
+#
+#
+#
+#        Application Targets and Dependencies
+#
+all: bin/make_index
+
+clean:
+	- $(DEL_CMD) $(MAKE_INDEX_DIR)/*.o $(SHARED_DIR)/*.o
+	- $(DEL_CMD) bin/make_index
+
+#
+#        List the project object modules
+#
+OBJECTFILES1 = $(SHARED_DIR)/convert.o $(MAKE_INDEX_DIR)/make_index.o $(MAKE_INDEX_DIR)/index.o
+
+OBJECTFILES = $(OBJECTFILES1)
+
+
+
+$(SHARED_DIR)/convert.o: $(SHARED_DIR)/convert.c $(ODLC_DIR)/pdsdef.h $(SHARED_DIR)/convert.h $(ODLC_DIR)/utildef.h
+
+$(MAKE_INDEX_DIR)/make_index.o: $(MAKE_INDEX_DIR)/make_index.c $(ODLC_DIR)/pdsdef.h $(ODLC_DIR)/pdsglob.h $(MAKE_INDEX_DIR)/index.h $(LABLIB_DIR)/fiodef.h $(LABLIB_DIR)/errordef.h $(ODLC_DIR)/pdsdef.h $(SHARED_DIR)/convert.h $(ODLC_DIR)/utildef.h
+
+$(MAKE_INDEX_DIR)/index.o: $(MAKE_INDEX_DIR)/index.c $(ODLC_DIR)/pdsdef.h $(MAKE_INDEX_DIR)/index.h $(LABLIB_DIR)/errordef.h
+
+
+
+#
+#        Application link line
+#
+bin/make_index: $(OBJECTFILES) 
+	$(LD) $(OBJECTFILES) $(LDOPTS) $(LIBS) -o $@
+

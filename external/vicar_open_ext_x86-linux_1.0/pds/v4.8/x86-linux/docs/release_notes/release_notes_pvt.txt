@@ -1,0 +1,139 @@
+PDS Validation Tools
+
+===========================================================================
+
+Version 4.1 March 2006
+
+tkvalid.pl
+----------
+Added an option to disable the aliasing feature for the label validation
+test. Default is to enable the aliasing feature.
+
+validate.pl
+-----------
+Add a new flag, --nalias, to disable aliasing when running the label
+validation test.
+
+Users guide for the PVT has been updated to reflect the latest options
+that are available in the tools.
+
+===========================================================================
+
+Version 4.0 July 2005
+
+Added a Software DISCLAIMER message to the aareadme.txt file
+    
+validate.pl
+----------
+Made this script to run in batch mode again by default. Pop-up windows that
+used to appear by default now need to be set if the user wants to enable
+these windows to show:
+
+-rw   Display the output report window
+-s    Display the "Summary of Messages Found" window
+
+Script also runs the label validation test with the option "only validate
+level 3 labels" ON by default. User can turn this OFF by setting "--nol3d"
+on the command-line.
+
+Added a new option, --se, that saves the temporary files that the label
+validation test creates when it encounters a STRUCTURE pointer in a label
+file. This temporary file is saved onto the users hard drive so that the
+user can refer to this file when it goes through the output report and
+finds error messages that point to this temporary files.
+
+tkvalid.pl has been modified accordingly to account for these changes.
+
+Also, validate.pl, tkvalid.pl, checkiso.pl, and listerr.pl have been
+modified to capture directory name inputs with spaces properly
+(i.e. C:\Documents and Settings\...)  
+
+bin directory has been removed from the tree structure. Instead, kwvtool, 
+lvtool, make_index, and isochecker reside in the same directory as the
+scripts.
+
+===========================================================================
+
+Version 3.0 September 2004
+
+IMPORTANT NOTICE:
+
+It is recommended that the user creates their own pdsdd.idx file under
+the pvt\data directory. There have been pointer issues in the past that
+resulted in the pdsdd.idx file not being found when running the PERL
+ools.
+    
+Run the PDS tool called "make_index" on the pdsdd.full file found in
+the pvt\data directory before using any of the PERL tools.
+
+Changes for this version:
+
+Made changes in tkvalid.pl, validate.pl, and listerr.pl to allow a user to
+once again run in batch mode processing without interruption of pop-up
+windows that would appear after the label valdition test is complete. Many
+additional command-line options have been added to these scripts. Please
+see the PVT users guide under the docs directory to see a detailed
+description of all the command-line options available to these 3 script
+files.
+    
+===========================================================================
+
+Version 2.0 March 2004
+
+Changes for this version:
+
+    Updated message_list.txt to include more error and warning messages.
+
+    The "Label Validation Settings" screen had its 2 buttons renamed to 
+    "Run Tests" and "Back to Main Menu."
+
+    Most of the perl scripts had a mixture of '/' with '\' when stating 
+    file names that contain a directory path. They've been changed to
+    become consistent.  
+
+New features:
+
+Once the Label Validation Test is finished, a new screen will appear that
+allows a user to select which messages to see associated file names for. 
+See aareadme.txt for detailed information on how to use this new feature.
+   
+A list of what options were chosen for the Label Validation Test can now be
+found at the top of the final report. Also, the final report now contains
+summaries of each message generated during the Validation Test. The summary
+information consists of how many times and in how many files each message
+occurred.
+
+An output window will now appear after the PVT finishes running its tests.
+This window was created so that a user will not need to bring up a text
+editor in order to see the results of the tests they chose to run. A copy
+of this report is still saved on file. 
+
+===========================================================================
+
+Version 1.0 June 2003
+
+New to version 1.0 is the ability of the user to select what types of 
+messages they do not want to see in the report when running the label
+validation test.
+
+Isochecker program has been fixed to correctly work on Solaris and Linux
+systems.
+
+listerr.pl now also lists warning and informational messages found in the 
+lvtool report file.
+
+checklab.pl has been removed as one of the test item selections in
+tkvalid.pl. Lvtool already performs a more efficient check than
+checklab.pl, so this script was able to go away.
+
+For a detailed description on how to run the new features of the validation
+tools, please see the aareadme.txt file.
+
+ 
+KNOWN BUGS:
+
+Entering an incorrect path to the cd device for linux or solaris may cause 
+the program to "freeze" unexpectedly.
+
+===========================================================================
+

@@ -1,0 +1,42 @@
+CFLAGS = -g
+DEFINES = -D SUN_UNIX -D _NO_PROTO -D PDS_TOOLBOX -D LV_TOOL
+LIB_DIR = lib
+LABLIB_DIR = lablib
+ODLC_DIR = odlc
+ODLC_LABLIB_LIB = $(LIB_DIR)/libodlc_lablib_lvtool.a
+
+PDS_LABLIB_OBJ = $(LABLIB_DIR)/label.o \
+	$(LABLIB_DIR)/labutil.o \
+	$(LABLIB_DIR)/fiolib.o \
+	$(LABLIB_DIR)/errorlib.o
+
+LABLIB_LIB_SOURCE = $(LABLIB_DIR)/label.c
+PDS_LIBRARIES = $(ODLC_LABLIB_LIB)
+PDS_INCLUDES = -I$(LABLIB_DIR) -I$(ODLC_DIR)
+
+#.SILENT:
+.KEEP_STATE:
+.IGNORE:
+
+default: 
+	make clean
+	if [ -f $(LABLIB_LIB_SOURCE) ]; then make lablib_lvtool; fi
+
+lablib_lvtool: $(PDS_LABLIB_OBJ)
+	if [ -f $(LABLIB_DIR)/label.c ]; then \
+		ar -rv $(ODLC_LABLIB_LIB) $(PDS_LABLIB_OBJ); \
+	fi
+
+
+.c.o:
+	if [ -f $*.c ]; then \
+	     echo Making $@; \
+	     cc $(CFLAGS) $(PDS_INCLUDES) $(DEFINES) -c  $*.c -o $@; \
+	else \
+		exit 0; \
+	fi
+
+clean:
+	touch $(LABLIB_DIR)/*.o 
+	-rm $(LABLIB_DIR)/*.o 
+

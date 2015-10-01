@@ -1,0 +1,75 @@
+
+FLAGS       =  -DSUN_UNIX -DLINUX -DPDS_TOOLBOX
+
+# Change this to the path where your ODL library, header, and source
+# files are located in your directory.
+ODLC_DIR    =  odlc
+LABLIB_DIR = lablib
+LIB_DIR = lib
+
+TAB2LAB_DIR = legacy/tab2lab
+
+INC_PATH  = -I$(ODLC_DIR) -I$(LABLIB_DIR) -I$(TAB2LAB_DIR)
+LIB_PATH  = -L$(LIB_DIR)
+
+LIBS      =   -lm -lodlc_lablib
+
+#
+#        Translator Options
+#
+#CCOPTS      = -c -O $(INC_PATH)
+CCOPTS = -c -O $(INC_PATH)
+LDOPTS      = $(LIB_PATH)
+
+
+#
+#        Translator Definitions
+#
+CC        = gcc
+LD        = gcc
+
+#
+#        Utility Definitions
+#
+COPY_CMD  = cp
+DEL_CMD   = rm
+MOVE_CMD  = mv
+
+.c.o:
+	$(CC) $(FLAGS) $(CCOPTS) $< -o $@;
+#
+#
+#
+#        Application Targets and Dependencies
+#
+all:      bin/tab2lab
+
+clean:
+	- $(DEL_CMD) $(TAB2LAB_DIR)/*.o
+	- $(DEL_CMD) bin/tab2lab
+
+#
+#        List the project object modules
+#
+OBJECTFILES1 = $(TAB2LAB_DIR)/tab2lab.o $(TAB2LAB_DIR)/classify.o
+
+OBJECTFILES = $(OBJECTFILES1)
+
+#
+#        List the project dependencies
+#
+
+
+$(TAB2LAB_DIR)/tab2lab.o: $(TAB2LAB_DIR)/tab2lab.c $(ODLC_DIR)/pdsdef.h $(ODLC_DIR)/pdsglob.h $(ODLC_DIR)/odlinter.h $(LABLIB_DIR)/label.h \
+           $(LABLIB_DIR)/errordef.h $(LABLIB_DIR)/fiodef.h
+
+$(TAB2LAB_DIR)/classify.o: $(ODLC_DIR)/odldef.h $(ODLC_DIR)/odlinter.h
+
+
+
+#
+#        Application link line
+#
+bin/tab2lab: $(OBJECTFILES) 
+	$(LD) $(OBJECTFILES) $(LDOPTS) $(LIBS) -o $@
+
